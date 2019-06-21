@@ -4,7 +4,7 @@ type Language = "jp" | "ru";
 type LangProviderProps = { children: (data: Language) => React.ReactNode };
 type LangProviderState = { lang: Language };
 
-class DataProvider extends React.Component<
+class LangProvider extends React.Component<
   LangProviderProps,
   LangProviderState
 > {
@@ -18,7 +18,7 @@ class DataProvider extends React.Component<
 }
 
 export const App = ({}) => (
-  <DataProvider>
+  <LangProvider>
     {lang => <button>{lang === "jp" ? "確かめる" : "Подтверждаю"}</button>}
-  </DataProvider>
+  </LangProvider>
 );

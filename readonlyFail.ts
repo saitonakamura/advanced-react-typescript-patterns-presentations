@@ -7,7 +7,7 @@ const readOnly = { value: 1 } as const;
 readOnly.value = 0
 
 function erase(data: Data): void {
-  data.value = 0;
+  delete data.value;
 }
 
 erase(readOnly); // expected a type error, actual: no problem

@@ -1,21 +1,24 @@
 import React from "react";
 
-type DataProviderProps = { children: (data: string) => React.ReactNode };
-type DataProviderState = { data: string };
+type Language = "jp" | "ru";
+type LangProviderProps = { children: (data: Language) => React.ReactNode };
+type LangProviderState = { lang: Language };
 
 class DataProvider extends React.Component<
-  DataProviderProps,
-  DataProviderState
+  LangProviderProps,
+  LangProviderState
 > {
   componentDidMount() {
-    this.setState({ data: "some data" });
+    this.setState({ lang: "ru" });
   }
 
   render() {
-    return this.props.children(this.state.data);
+    return this.props.children(this.state.lang);
   }
 }
 
 export const App = ({}) => (
-  <DataProvider>{data => <span>{data}</span>}</DataProvider>
+  <DataProvider>
+    {lang => <button>{lang === "jp" ? "確かめる" : "Подтверждаю"}</button>}
+  </DataProvider>
 );

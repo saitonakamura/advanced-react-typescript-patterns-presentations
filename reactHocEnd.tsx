@@ -1,25 +1,46 @@
 import React from "react";
 
-type HocProps = {
-  data: string;
+type Language = "jp" | "ru";
+
+type LangHocProps = {
+  lang: Language;
 };
 
-type ExcludeHocProps<T extends HocProps> = Pick<T, Exclude<keyof T, "data">>;
+type ExcludeLangHocProps<T extends LangHocProps> = Pick<
+  T,
+  Exclude<keyof T, "lang">
+>;
 
-export function withData<P extends HocProps>(
+function withLang<P extends LangHocProps>(
   WrappedComponent: React.ComponentType<P>
 ) {
-  return class Hoc extends React.Component<ExcludeHocProps<P>> {
+  return class Hoc extends React.Component<
+    ExcludeLangHocProps<P>,
+    { lang: Language }
+  > {
+    componentDidMount() {
+      this.setState({ lang: "jp" });
+    }
+
     render() {
-      return <WrappedComponent {...(this.props as P)} data="some data" />;
+      return <WrappedComponent {...(this.props as P)} lang={this.state.lang} />;
     }
   };
 }
 
-const Text = ({ data, color }: { data: string; color: string }) => (
-  <span style={{ color }}>{data}</span>
-);
+class ReloadIfLangChanges extends React.Component<{ lang: Language }> {
+  componentDidUpdate(prevProps: { lang: Language }) {
+    if (this.props.lang !== prevProps.lang) {
+      // Reload page
+      window.location = window.location;
+    }
+  }
 
-const PredefinedText = withData(Text);
+  render() {
+    return this.props.children;
+  }
+}
 
-export const App = <PredefinedText color="black" />;
+const ReloadIfLangChangesWithLang = withLang(ReloadIfLangChanges);
+
+export const App = <ReloadIfLangChangesWithLang />;

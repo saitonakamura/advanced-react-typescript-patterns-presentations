@@ -42,22 +42,22 @@ function DataTableF<T>({ data, columns }: DataTableProps<T>) {
   );
 }
 
-type User = { name: string; createdAt: Date };
+type Warrior = { name: string; bornAt: Date };
 
 export const App = ({}) => (
   <>
-    <DataTable<User>
-      data={[{ name: "Saito Nakamura", createdAt: new Date() }]}
+    <DataTable<Warrior>
+      data={[{ name: "Фа Пинг", bornAt: new Date(1998, 6, 19) }]}
       columns={[
         { header: "Name", key: "name" },
-        { header: "Created at", key: "createdAt" }
+        { header: "Born at", key: "bornAt" }
       ]}
     />
-    <DataTableF<User>
-      data={[{ name: "Saito Nakamura", createdAt: new Date() }]}
+    <DataTableF<Warrior>
+      data={[{ name: "Ли шанг", bornAt: new Date(1998, 6, 19) }]}
       columns={[
         { header: "Name", key: "name" },
-        { header: "Created at", key: "createdAt" }
+        { header: "Born at", key: "bornAt" }
       ]}
     />
   </>

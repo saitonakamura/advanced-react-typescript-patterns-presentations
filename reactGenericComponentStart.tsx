@@ -10,7 +10,7 @@ type Column = {
   key: string;
 };
 
-class DataTable extends React.Component<DataTableProps, {}> {
+class DataTable extends React.Component<DataTableProps> {
   render() {
     const { data, columns } = this.props;
 
